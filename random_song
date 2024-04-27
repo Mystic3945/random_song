@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! command -v ffprobe &> /dev/null || ! command -v ffplay &> /dev/null; then
+        echo "Dependencies not met"
+        exit 0
+fi
+
 tput civis
 
 clear
