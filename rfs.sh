@@ -49,12 +49,14 @@ username=${SUDO_USER:-$(whoami)}
 chown "$username" /usr/local/bin/random_song
 
 # If nemo is file manager add script to right click menu
-if pgrep -x "nemo" > /dev/null; then
+if ps -ef | grep -q '[n]emo'; then
 echo '#!/bin/bash
 gnome-terminal -- /bin/bash -c "/usr/local/bin/random_song"' > /home/"$username"/.local/share/nemo/scripts/Play\ Random\ Song
-fi
 chmod +x /home/"$username"/.local/share/nemo/scripts/Play\ Random\ Song
 chown "$username" /home/"$username"/.local/share/nemo/scripts/Play\ Random\ Song
+nemo_info="Or right click inside of any directory and 
+click ${YELLOW}Play Random Song${NOCOLOR} under ${YELLOW}Scripts${NOCOLOR} "
+fi
 
 clear
 
@@ -63,8 +65,14 @@ echo -e "
 
 
 
+
+
 Simply naviagte to any directory and 
 type  ${YELLOW}random_song${NOCOLOR}  to play random audio files
+
+${nemo_info}
+
+
 
 
 
