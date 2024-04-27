@@ -52,6 +52,8 @@ chown "$username" /usr/local/bin/random_song
 if pgrep -x "nemo" > /dev/null; then
 echo '#!/bin/bash
 gnome-terminal -- /bin/bash -c "/usr/local/bin/random_song"' > /home/"$username"/.local/share/nemo/scripts/Play\ Random\ Song
+chmod +x /home/"$username"/.local/share/nemo/scripts/Play\ Random\ Song
+chown "$username" /home/"$username"/.local/share/nemo/scripts/Play\ Random\ Song
 fi
 
 clear
