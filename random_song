@@ -33,7 +33,7 @@ fi
 
 }
 
-# Function to prints various metadata onto terminal
+# Function to print various metadata onto terminal
 print_metadata() {
     local song="$1"
 
@@ -65,7 +65,7 @@ print_metadata() {
     echo -e "   
                     ${bold}Album:${album_color} $album${reset_color}"          
     
-    if [ "$FLAC_ONLY" == false ] && [ "$MP3_ONLY" == false ]; then
+    if [ "$FLAC_ONLY" == false ] && [ "$MP3_ONLY" == false ] && [ "$M4A_ONLY" == false]; then
     echo -e "                          
                     ${bold}Codec:${RED} $format${reset_color}"
     fi
