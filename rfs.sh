@@ -58,6 +58,10 @@ nemo_info="Or right click inside of any directory and
 click ${YELLOW}Play Random Song${NOCOLOR} under ${YELLOW}Scripts${NOCOLOR} "
 fi
 
+if [ -n "$WSL_DISTRO_NAME" ]; then
+wget "https://raw.githubusercontent.com/Mystic3945/random_song/main/wsl_rightclick.bat"
+cmd.exe /c wsl_rightclick.bat
+fi
 clear
 
 # Displayus some info about the script before exiting
