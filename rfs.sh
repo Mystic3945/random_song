@@ -3,35 +3,31 @@
 YELLOW='\033[1;33m'
 NOCOLOR='\033[0m'
 
-# Checks if script is ran as root
-if [[ $EUID -ne 0 ]]; then
-clear
-echo -e "${YELLOW}You must be a root user to run this script, please run sudo${NOCOLOR}"
-exit 0
-fi
-
 # Dependencies
 packages=("ffmpeg" "toilet" "ffmpeg-free" "wget")
 
+echo -e "${YELLOW}Checking for packages${NOCOLOR}"
+sudo apt update
+
 package_installed_apt() {
 
-    dpkg -s "$1" &> /dev/null
+    sudo dpkg -s "$1" &> /dev/null
 }
 
 package_installed_rpm() {
 
-    rpm -q "$1" &> /dev/null
+    sudo rpm -q "$1" &> /dev/null
 }
 
 # Downloads packages if they aren't installed already
 for pkg in "${packages[@]}"; do
     if [ -f /etc/debian_version ]; then
         if ! package_installed_apt "$pkg"; then
-        apt install "$pkg" -y
+        sudo apt install "$pkg" -y
         fi 
     elif [ -f /etc/fedora-release ]; then
         if ! package_installed_rpm "$pkg"; then
-        dnf install "$pkg" -y
+        sudo dnf install "$pkg" -y
         fi 
     else
         echo "Install script only works in Debian and Fedora"
@@ -43,10 +39,10 @@ done
 wget "https://raw.githubusercontent.com/Mystic3945/random_song/main/random_song"
 
 # Places script in correct directories and assigns proper permissions
-mv random_song /usr/local/bin/
-chmod +x /usr/local/bin/random_song
-username=${SUDO_USER:-$(whoami)}
-chown "$username" /usr/local/bin/random_song
+sudo mv random_song /usr/local/bin/
+sudo chmod +x /usr/local/bin/random_song
+username=$(whoami)
+sudo chown "$username" /usr/local/bin/random_song
 
 # If nemo is file manager add script to right click menu
 if ps -ef | grep -q '[n]emo'; then
@@ -58,7 +54,12 @@ nemo_info="Or right click inside of any directory and
 click ${YELLOW}Play Random Song${NOCOLOR} under ${YELLOW}Scripts${NOCOLOR} "
 fi
 
-clear
+if [ -n "$WSL_DISTRO_NAME" ]; then
+wget "https://raw.githubusercontent.com/Mystic3945/random_song/main/wsl_rightclick.bat"
+cmd.exe /c wsl_rightclick.bat
+windows_info="Or right click inside of any folder and 
+click ${YELLOW}Play Random Song${NOCOLOR}
+fi
 
 # Displayus some info about the script before exiting
 echo -e "
@@ -70,17 +71,6 @@ echo -e "
 Simply naviagte to any directory and 
 type  ${YELLOW}random_song${NOCOLOR}  to play random audio files
 
-${nemo_info}
-
-
-
-
-
-"
-
-if [ -n "$WSL_DISTRO_NAME" ]; then
-wget "https://raw.githubusercontent.com/Mystic3945/random_song/main/wsl_rightclick.bat"
-cmd.exe /c wsl_rightclick.bat
-fi
+${nemo_info}${windows_info}"
 
 exit 0
