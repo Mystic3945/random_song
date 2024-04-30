@@ -27,3 +27,5 @@ if '%errorlevel%' NEQ '0' (
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\Play Random Song" /f
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\Play Random Song\command" /d "wsl bash /usr/local/bin/random_song" /f
+
+del "%~f0"
