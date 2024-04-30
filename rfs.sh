@@ -44,7 +44,7 @@ sudo chmod +x /usr/local/bin/random_song
 username=$(whoami)
 sudo chown "$username" /usr/local/bin/random_song
 
-# If nemo is file manager add script to right click menu
+# If nemo is file manager, add script to right click menu
 if ps -ef | grep -q '[n]emo'; then
 echo '#!/bin/bash
 gnome-terminal -- /bin/bash -c "/usr/local/bin/random_song"' > /home/"$username"/.local/share/nemo/scripts/Play\ Random\ Song
@@ -54,11 +54,13 @@ nemo_info="Or right click inside of any directory and
 click ${YELLOW}Play Random Song${NOCOLOR} under ${YELLOW}Scripts${NOCOLOR} "
 fi
 
+# If running in WSL, add script to right click menu
 if [ -n "$WSL_DISTRO_NAME" ]; then
 wget "https://raw.githubusercontent.com/Mystic3945/random_song/main/wsl_rightclick.bat"
 cmd.exe /c wsl_rightclick.bat
 windows_info="Or right click inside of any folder and 
 click ${YELLOW}Play Random Song${NOCOLOR}"
+sudo sed -i '72,75s/^/#/' /usr/local/bin/random_song
 fi
 
 # Displayus some info about the script before exiting
