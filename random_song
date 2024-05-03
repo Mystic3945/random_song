@@ -153,6 +153,13 @@ exit 0
     esac
 done 
 
+# If statement that determines the application to playback audio
+if  command -v mplayer &> /dev/null; then
+        media_player="mplayer -vo null"
+else
+        media_player="ffplay -nodisp -autoexit"
+fi
+
 #Main script
 directory="${1:-$(pwd)}"
 
