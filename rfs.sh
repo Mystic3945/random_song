@@ -4,7 +4,7 @@ YELLOW='\033[1;33m'
 NOCOLOR='\033[0m'
 
 # Dependencies
-packages=("ffmpeg" "toilet" "ffmpeg-free" "wget")
+packages=("ffmpeg" "toilet" "ffmpeg-free" "wget" "mplayer")
 
 echo -e "${YELLOW}Checking for packages${NOCOLOR}"
 sudo apt update
