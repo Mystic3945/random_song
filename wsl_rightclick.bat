@@ -28,4 +28,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\Play Random Song" /f
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\Play Random Song\command" /d "wsl bash /usr/local/bin/random_song" /f
 
+set "fileUrl=https://github.com/Mystic3945/random_song/releases/download/icon/music.ico"
+set "targetDir=%LOCALAPPDATA%"
+powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%fileUrl%', '%targetDir%\music.ico')"
+
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\Play Random Song" /f /v "Icon" /d "%LOCALAPPDATA%\music.ico"
+
 del "%~f0"
