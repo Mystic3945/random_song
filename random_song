@@ -172,7 +172,7 @@ while true; do
     else
         if [ -n "$random_flac" ]; then
             print_metadata "$random_flac"
-            ffplay -nodisp -autoexit "$random_flac" > /dev/null 2>&1
+            $media_player "$random_flac" > /dev/null 2>&1
             clear
         else
             clear
